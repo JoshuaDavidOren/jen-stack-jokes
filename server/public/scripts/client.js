@@ -4,7 +4,8 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('DOM ready');
-    getArray()
+    getArray();
+    $('#addJokeButton').on('click', newJoke);
 }
 // let jokes = [
 //   {
@@ -30,29 +31,34 @@ function getArray() {
 
 function renderMyArray(array) {
     console.log(array[1]);
+    $('#outputDiv').empty();
     for (let joke in array) {
+
         $('#outputDiv').prepend(`
         <div>
-        <li>${joke.object.jokeQuestion})
-        <li>${joke.object.punchLine}<span> ${joke.object.whoseJoke}</span>`)
+        <li>${joke.jokeQuestion}
+        <li>${joke.punchLine}<span> ${joke.whoseJoke}</span>`)
     }
 }
 
-$.ajax({
-        method: 'POST',
-        url: '/funny',
-        data: {
-            jokes: {
-                whoseJoke: $('#whoseJokeIn').val(),
-                jokeQuestion: $('#jokeQuestionIn').val(),
-                punchLine: $('#punchLineIn').val()
+function newJoke() {
+    console.log('Sending new joke');
+    $.ajax({
+            method: 'POST',
+            url: '/funny',
+            data: {
+                jokes: {
+                    whoseJoke: $('#whoseJokeIn').val(),
+                    jokeQuestion: $('#QuestionIn').val(),
+                    punchLine: $('#punchLineIn').val()
+                }
             }
-        }
-    })
-    .then(function() {
-        console.log('Joke sent');
-        getArray();
-    })
-    .catch(function(error) {
-        alert('You can do this Joshua');
-    });
+        })
+        .then(function() {
+            console.log('Joke sent');
+            getArray();
+        })
+        .catch(function(error) {
+            alert('You can do this Joshua');
+        })
+};
