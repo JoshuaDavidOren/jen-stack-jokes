@@ -27,6 +27,13 @@ function getArray() {
             console.log('can not GET', error);
         });
 }
-renderMyArray(array) {
+
+function renderMyArray(array) {
     console.log(array[1]);
+    for (let joke in array) {
+        $('#outputDiv').prepend(`
+        <div>
+        <li>${joke.jokeQuestion})
+        <li>${joke.punchLine}<span> ${joke.whoseJoke}</span>`)
+    }
 }
