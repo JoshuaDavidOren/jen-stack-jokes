@@ -36,22 +36,23 @@ function renderMyArray(array) {
 
         $('#outputDiv').prepend(`
         <div>
-        <li>${joke.jokeQuestion}
-        <li>${joke.punchLine}<span> ${joke.whoseJoke}</span>`)
+        <li>Joke: ${array[joke].jokeQuestion}
+        <li>Punch line: ${array[joke].punchLine} 
+        <li> By: ${array[joke].whoseJoke}</li>
+        </div`)
     }
 }
 
 function newJoke() {
     console.log('Sending new joke');
+    console.log($('#punchLineIn').val());
     $.ajax({
             method: 'POST',
             url: '/funny',
             data: {
-                jokes: {
-                    whoseJoke: $('#whoseJokeIn').val(),
-                    jokeQuestion: $('#QuestionIn').val(),
-                    punchLine: $('#punchLineIn').val()
-                }
+                whoseJoke: $('#whoseJokeIn').val(),
+                jokeQuestion: $('#questionIn').val(),
+                punchLine: $('#punchlineIn').val(),
             }
         })
         .then(function() {
@@ -60,5 +61,9 @@ function newJoke() {
         })
         .catch(function(error) {
             alert('You can do this Joshua');
-        })
+        });
+
+    $('#whoseJokeIn').val(''),
+        $('#questionIn').val(''),
+        $('#punchlineIn').val('')
 };
