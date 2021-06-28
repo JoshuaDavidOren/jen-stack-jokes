@@ -33,7 +33,26 @@ function renderMyArray(array) {
     for (let joke in array) {
         $('#outputDiv').prepend(`
         <div>
-        <li>${joke.jokeQuestion})
-        <li>${joke.punchLine}<span> ${joke.whoseJoke}</span>`)
+        <li>${joke.object.jokeQuestion})
+        <li>${joke.object.punchLine}<span> ${joke.object.whoseJoke}</span>`)
     }
 }
+
+$.ajax({
+        method: 'POST',
+        url: '/funny',
+        data: {
+            jokes: {
+                whoseJoke: $('#whoseJokeIn').val(),
+                jokeQuestion: $('#jokeQuestionIn').val(),
+                punchLine: $('#punchLineIn').val()
+            }
+        }
+    })
+    .then(function() {
+        console.log('Joke sent');
+        getArray();
+    })
+    .catch(function(error) {
+        alert('You can do this Joshua');
+    });
